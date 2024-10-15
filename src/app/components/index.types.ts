@@ -1,5 +1,5 @@
 export type FormTypes = {
-    id?: number
+    id?: string
     title: string,
     severity: 'high' | 'low' | 'medium',
     time: string,

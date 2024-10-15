@@ -8,11 +8,11 @@ import {FormTypes} from "@/app/components/index.types";
 
 export default function ToDoCardList() {
     const [fakeData, setFakeData] = useState<FormTypes[]>([]);
+    const [selected, setSelected] = useState<FormTypes | undefined>(undefined);
     const [open, setOpen] = useState(false);
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
-
 
     useEffect(() => {
         prefetch()
@@ -25,9 +25,24 @@ export default function ToDoCardList() {
         }
     }
 
+    function deleteCardHandler(id: string) {
+        console.log('fakeData', fakeData)
+        console.log('id', id)
+        const dataAfterDelete = fakeData.filter((item) => {
+            return item.id !== id
+        })
+        localStorage.setItem('toDoList', JSON.stringify(dataAfterDelete));
+        setFakeData(dataAfterDelete)
+    }
+
+    function editCardHandler(item: FormTypes) {
+        setSelected(item)
+        setOpen(true)
+    }
+
+
     return (
         <>
-
             <Container
                 sx={{
                     padding: '10px',
@@ -52,7 +67,7 @@ export default function ToDoCardList() {
                 </Stack>
                 <Stack width='100%' direction="column" spacing={2}>
                     {fakeData.map((item) => (
-                        <Paper sx={{padding: '10px'}}>
+                        <Paper key={item.id} sx={{padding: '10px'}}>
                             <Stack justifyContent='space-between' alignItems='center' direction='row'>
                                 <Box>
                                     <Typography>
@@ -64,10 +79,10 @@ export default function ToDoCardList() {
                                     </Stack>
                                 </Box>
                                 <Stack direction='row' spacing={2}>
-                                    <Button variant="outlined">
+                                    <Button variant="outlined" onClick={() => deleteCardHandler(item.id as string)}>
                                         delete
                                     </Button>
-                                    <Button variant="outlined">
+                                    <Button variant="outlined" onClick={() => editCardHandler(item)}>
                                         EDIT
                                     </Button>
                                 </Stack>
@@ -77,7 +92,7 @@ export default function ToDoCardList() {
                 </Stack>
             </Container>
             <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
-                <ToDoForm prefetch={prefetch} setOpen={setOpen}/>
+                <ToDoForm item={selected as FormTypes} prefetch={prefetch} setOpen={setOpen}/>
             </Drawer>
         </>
     )

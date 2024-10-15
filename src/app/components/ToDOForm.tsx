@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Button, ButtonGroup, Stack, TextField, Typography} from "@mui/material";
 import {useForm} from '@mantine/form';
 import {FormTypes} from "@/app/components/index.types";
@@ -8,6 +8,7 @@ import {v4} from 'uuid'
 type Props = {
     setOpen: (value: boolean) => void;
     prefetch: () => void;
+    item: FormTypes
 }
 
 export default function ToDoForm(props: Props) {
@@ -38,6 +39,19 @@ export default function ToDoForm(props: Props) {
         props.prefetch()
         props.setOpen(false);
     };
+
+
+    useEffect(() => {
+        if (props.item.id) {
+            form.setValues({
+                id: props.item.id,
+                title: props.item.title,
+                status: props.item.status,
+                severity: props.item.severity,
+                time: `${props.item.time}h`,
+            })
+        }
+    }, [props.item.id])
 
     return (
         <form onSubmit={form.onSubmit(handleSubmit)}>
