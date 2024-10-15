@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {Box, Button, Checkbox, Chip, Container, Drawer, Paper, Stack, Typography} from "@mui/material";
-import ToDoForm from "@/app/components/ToDOForm";
+import ToDoForm from "@/app/components/ToDoForm";
 import {FormTypes} from "@/app/components/index.types";
 
 
@@ -26,8 +26,6 @@ export default function ToDoCardList() {
     }
 
     function deleteCardHandler(id: string) {
-        console.log('fakeData', fakeData)
-        console.log('id', id)
         const dataAfterDelete = fakeData.filter((item) => {
             return item.id !== id
         })

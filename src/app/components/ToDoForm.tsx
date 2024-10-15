@@ -24,34 +24,55 @@ export default function ToDoForm(props: Props) {
     });
 
     const handleSubmit = (values: FormTypes) => {
-        const newRecord = {
-            id: v4(),
-            title: values.title,
-            severity: values.severity,
-            status: false,
-            time: `${values.time}h`,
-        };
-        const existingData = localStorage.getItem('toDoList');
-        const parsedData = existingData ? JSON.parse(existingData) : [];
-        const updatedData = [...parsedData, newRecord];
-        localStorage.setItem('toDoList', JSON.stringify(updatedData));
-        form.reset();
-        props.prefetch()
-        props.setOpen(false);
+        if (props.item?.id) {
+            const newRecord = {
+                id: props.item.id,
+                title: values.title,
+                severity: values.severity,
+                status: props.item.status,
+                time: `${values.time}h`,
+            };
+            const fakeDataForEdit = JSON.parse(localStorage.getItem('toDoList'));
+
+            const findIndex = fakeDataForEdit.findIndex((item: FormTypes) => {
+                return item.id === props.item.id;
+            })
+            console.log(findIndex)
+            fakeDataForEdit.splice(findIndex, 1, newRecord)
+            localStorage.setItem('toDoList', JSON.stringify(fakeDataForEdit));
+            props.prefetch()
+            props.setOpen(false)
+            form.reset()
+        } else {
+            const newRecord = {
+                id: v4(),
+                title: values.title,
+                severity: values.severity,
+                status: false,
+                time: `${values.time}h`,
+            };
+            const existingData = localStorage.getItem('toDoList');
+            const parsedData = existingData ? JSON.parse(existingData) : [];
+            const updatedData = [...parsedData, newRecord];
+            localStorage.setItem('toDoList', JSON.stringify(updatedData));
+            form.reset();
+            props.prefetch()
+            props.setOpen(false);
+        }
     };
 
 
     useEffect(() => {
-        if (props.item.id) {
+        if (props.item?.id) {
             form.setValues({
-                id: props.item.id,
-                title: props.item.title,
-                status: props.item.status,
-                severity: props.item.severity,
-                time: `${props.item.time}h`,
+                id: props.item?.id,
+                title: props.item?.title,
+                status: props.item?.status,
+                severity: props.item?.severity,
+                time: `${props.item?.time}h`,
             })
         }
-    }, [props.item.id])
+    }, [props.item?.id])
 
     return (
         <form onSubmit={form.onSubmit(handleSubmit)}>
