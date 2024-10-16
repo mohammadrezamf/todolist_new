@@ -1,7 +1,7 @@
 'use client';
 
 import React, {useEffect, useState} from 'react';
-import {Button, Container, Drawer, Stack, TextField, Typography} from '@mui/material';
+import {Box, Button, Container, Drawer, Stack, TextField, Typography} from '@mui/material';
 import ToDoForm from '@/app/components/ToDoForm';
 import {FormTypes} from '@/app/components/index.types';
 import ToDoCard from '@/app/components/ToDoCard';
@@ -76,7 +76,9 @@ export default function ToDoCardList() {
     }, [searchTerm, fakeData]);
 
     return (
-        <>
+        <Box sx={{
+            backgroundColor: '#eceff1'
+        }}>
             <Container
                 sx={{
                     padding: '10px',
@@ -86,6 +88,7 @@ export default function ToDoCardList() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     minHeight: '100vh',
+
                 }}
             >
                 <Typography mx="auto" variant="h5" mb={3}>
@@ -136,6 +139,6 @@ export default function ToDoCardList() {
                     setOpen={setIsDrawerOpen}
                 />
             </Drawer>
-        </>
+        </Box>
     );
 }

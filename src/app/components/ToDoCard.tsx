@@ -17,7 +17,7 @@ const ToDoCard = ({data, toggleStatus, deleteCardHandler, openForm}: Props) => {
                     <Typography ml={1} mb={1}>{data.title}</Typography>
                     <Stack alignItems="center" direction="row" spacing={2}>
                         <Chip label={data.severity}/>
-                        <Chip label={data.time}/>
+                        <Chip label={`${data.time} hour`}/>
                         <Checkbox
                             checked={data.status}
                             onChange={() => toggleStatus(data?.id as string)}

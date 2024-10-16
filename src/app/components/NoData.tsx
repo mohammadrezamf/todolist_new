@@ -5,17 +5,15 @@ const NoData = () => {
     return (
         <Container
             sx={{
-                padding: '10px',
-                paddingTop: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                minHeight: '100vh',
+                minHeight: '50vh',
             }}
         >
             <Card>
-                <Typography variant="h3" m={20}>
+                <Typography variant="h3" m={5}>
                     First add new task
                 </Typography>
             </Card>

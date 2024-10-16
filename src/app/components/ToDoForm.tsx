@@ -43,7 +43,7 @@ export default function ToDoForm({setOpen, prefetch, item}: Props) {
             title: values.title,
             severity: values.severity,
             status: item?.status || false,
-            time: `${values.time}h`,
+            time: `${values.time}`,
         };
 
         if (item?.id) {
@@ -66,7 +66,7 @@ export default function ToDoForm({setOpen, prefetch, item}: Props) {
                 title: item.title,
                 status: item.status,
                 severity: item.severity,
-                time: `${item.time}h`,
+                time: `${item.time}`,
             });
         }
     }, [item?.id]);
