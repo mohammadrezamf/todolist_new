@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Container, Typography} from '@mui/material';
 
-const NoData = (props) => {
+const NoData = () => {
     return (
         <Container
             sx={{

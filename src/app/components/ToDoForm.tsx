@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Box, Button, ButtonGroup, Stack, TextField, Typography} from '@mui/material';
-import {isInRange, isNotEmpty, useForm} from '@mantine/form';
+import {isNotEmpty, useForm} from '@mantine/form';
 import {FormTypes} from '@/app/components/index.types';
 import {v4 as uuidv4} from 'uuid';
 
